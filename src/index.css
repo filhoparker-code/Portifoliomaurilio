@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Modern Orange & Purple Palette */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+    
+    /* Orange Primary */
+    --primary: 25 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Purple Secondary */
+    --secondary: 277 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Purple Dark */
+    --purple-dark: 275 80% 18%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 277 76% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 25 100% 50%;
+
+    /* Custom design tokens */
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
+    --shadow-elegant: 0 10px 40px -10px hsl(25 100% 50% / 0.3);
+    
+    /* Section background colors */
+    --section-hero: hsl(25 100% 50%);
+    --section-about: hsl(0 0% 100%);
+    --section-experience: hsl(277 76% 36%);
+    --section-projects: hsl(25 100% 50%);
+    --section-certifications: hsl(0 0% 100%);
+    --section-contact: hsl(275 80% 18%);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 1.25rem;
+  }
+
+  .dark {
+    --background: 0 0% 13%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 18%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 18%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 25 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 277 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 277 76% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 25 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:shadow-elegant hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-secondary border-2 border-white hover:bg-white/90 px-8 py-4 rounded-full font-semibold transition-all duration-300;
+  }
+  
+  .card-elevated {
+    @apply bg-card border-0 rounded-3xl p-8 shadow-card hover:shadow-elegant transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .gradient-text {
+    @apply text-primary;
+  }
+  
+  .process-icon {
+    @apply w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center transition-all duration-300 hover:scale-110;
+  }
+}
