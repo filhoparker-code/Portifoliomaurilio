@@ -31,7 +31,7 @@ const Hero = () => {
                   Maurilio Cesar
                 </h1>
                 <p className="text-2xl font-medium text-white/90">
-                  Assistente de Processos | Estudante de Engenharia de Produção
+                  Assistente de Processos | Estudante de Engenharia de Produção | Estudante de Processos Gerenciais
                 </p>
               </div>
 
