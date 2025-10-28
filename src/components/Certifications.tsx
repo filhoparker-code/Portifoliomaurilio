@@ -53,13 +53,13 @@ const Certifications = () => {
                   {Array.isArray(item.img) ? (
                     <div className="flex gap-2">
                       {item.img.map((src: string, i: number) => (
-                        <a key={i} href={encodeURI(src)} target="_blank" rel="noopener noreferrer" className="inline-block btn-primary w-full text-center">
+                        <a key={i} href={`/viewer.html?img=${encodeURIComponent(src)}`} target="_blank" rel="noopener noreferrer" className="inline-block btn-primary w-full text-center">
                           Visualizar certificado {i + 1}
                         </a>
                       ))}
                     </div>
                   ) : (
-                    <a href={encodeURI(item.img as string)} target="_blank" rel="noopener noreferrer" className="inline-block btn-primary w-full text-center">
+                    <a href={`/viewer.html?img=${encodeURIComponent(item.img as string)}`} target="_blank" rel="noopener noreferrer" className="inline-block btn-primary w-full text-center">
                       Visualizar certificado
                     </a>
                   )}
