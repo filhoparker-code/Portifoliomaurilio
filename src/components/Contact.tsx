@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,6 +19,16 @@ const Contact = () => {
     });
   };
 
+  // Fill _next hidden input dynamically so Formsubmit redirects back to the same host
+  useEffect(() => {
+    try {
+      const next = document.getElementById('_next') as HTMLInputElement | null;
+      if (next) next.value = window.location.origin + '/thank-you.html';
+    } catch (e) {
+      // ignore in environments without window
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20" style={{ background: 'var(--section-contact)' }}>
       <div className="container mx-auto">
@@ -37,6 +47,10 @@ const Contact = () => {
             {/* Left - Contact Form */}
             <div className="bg-white rounded-3xl p-8 shadow-2xl">
               <form action="https://formsubmit.co/filhocesarp@gmail.com" method="POST" className="space-y-6">
+                {/* Formsubmit hidden inputs: _next will be filled dynamically so it works locally and in production */}
+                <input type="hidden" name="_next" id="_next" value="" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_subject" value="Novo contato do site" />
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-foreground">Nome</label>
                   <Input
