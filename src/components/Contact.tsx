@@ -61,7 +61,18 @@ const Contact = () => {
       try { window.location.href = '/thank-you.html'; } catch (err) { /* ignore */ }
     } catch (err) {
       console.error('EmailJS error', err);
-      toast({ title: 'Erro ao enviar', description: 'Tente novamente mais tarde.' });
+      // Try to extract useful info from the error object
+      try {
+        // EmailJS may return an object with status and text
+        // @ts-ignore
+        const status = err.status || (err && err.statusCode);
+        // @ts-ignore
+        const text = err.text || (err && err.response && err.response.text) || err.message;
+        console.error('EmailJS error detail', { status, text });
+        toast({ title: 'Erro ao enviar', description: text ? String(text).slice(0, 200) : 'Tente novamente mais tarde.' });
+      } catch (e) {
+        toast({ title: 'Erro ao enviar', description: 'Tente novamente mais tarde.' });
+      }
     }
   };
 
