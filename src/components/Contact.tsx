@@ -37,7 +37,7 @@ const Contact = () => {
 
   const serviceId = 'service_dgpdj19';
   // fallbacks: use env vars if available, otherwise use the provided keys
-  const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string) || 'template_s54i1ct';
+  const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string) || 'template_cbry756';
   const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string) || 'DwGEdjk-5ezcBqv4J';
 
     const templateParams = {
