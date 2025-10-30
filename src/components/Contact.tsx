@@ -35,9 +35,10 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const serviceId = 'service_dgpdj19';
-    const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string) || 'template_contact';
-    const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string) || undefined;
+  const serviceId = 'service_dgpdj19';
+  // fallbacks: use env vars if available, otherwise use the provided keys
+  const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string) || 'template_s54i1ct';
+  const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string) || 'DwGEdjk-5ezcBqv4J';
 
     const templateParams = {
       name: formData.name,
@@ -47,9 +48,11 @@ const Contact = () => {
     };
 
     try {
-      if (publicKey) {
-        // ensure initialized
+      // ensure initialized (EmailJS requires a public key)
+      try {
         emailjs.init(publicKey);
+      } catch (e) {
+        console.warn('EmailJS init warning', e);
       }
 
       console.log('EmailJS sending', { serviceId, templateId, publicKey, templateParams });
