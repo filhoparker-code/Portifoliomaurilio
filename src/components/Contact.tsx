@@ -3,6 +3,8 @@ import { Mail, Phone, MapPin, Send, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ const Contact = () => {
     email: '',
     message: ''
   });
-  // Note: form will be submitted directly to Formsubmit (see form attributes below).
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -19,15 +21,48 @@ const Contact = () => {
     });
   };
 
-  // Fill _next hidden input dynamically so Formsubmit redirects back to the same host
+  // Initialize EmailJS with public key (if provided via env)
   useEffect(() => {
     try {
-      const next = document.getElementById('_next') as HTMLInputElement | null;
-      if (next) next.value = window.location.origin + '/thank-you.html';
+      const key = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined;
+      if (key) emailjs.init(key);
     } catch (e) {
-      // ignore in environments without window
+      // ignore on server
     }
   }, []);
+
+  // Submit handler using EmailJS
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const serviceId = 'service_dgpdj19';
+    const templateId = (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string) || 'template_contact';
+    const publicKey = (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string) || undefined;
+
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      reply_to: formData.email,
+    };
+
+    try {
+      if (publicKey) {
+        // ensure initialized
+        emailjs.init(publicKey);
+      }
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      toast({ title: 'Mensagem enviada!', description: 'Entrarei em contato em breve.' });
+      setFormData({ name: '', email: '', message: '' });
+      // redirect to thank-you page
+      try { window.location.href = '/thank-you.html'; } catch (err) { /* ignore */ }
+    } catch (err) {
+      console.error('EmailJS error', err);
+      toast({ title: 'Erro ao enviar', description: 'Tente novamente mais tarde.' });
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20" style={{ background: 'var(--section-contact)' }}>
