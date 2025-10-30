@@ -52,6 +52,7 @@ const Contact = () => {
         emailjs.init(publicKey);
       }
 
+      console.log('EmailJS sending', { serviceId, templateId, publicKey, templateParams });
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
       toast({ title: 'Mensagem enviada!', description: 'Entrarei em contato em breve.' });
