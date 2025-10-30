@@ -3,7 +3,6 @@ import { Mail, Phone, MapPin, Send, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,16 +10,7 @@ const Contact = () => {
     email: '',
     message: ''
   });
-  const { toast } = useToast();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Mensagem enviada!",
-      description: "Entrarei em contato em breve. Obrigado!",
-    });
-    setFormData({ name: '', email: '', message: '' });
-  };
+  // Note: form will be submitted directly to Formsubmit (see form attributes below).
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -46,7 +36,7 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Left - Contact Form */}
             <div className="bg-white rounded-3xl p-8 shadow-2xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form action="https://formsubmit.co/filhocesarp@gmail.com" method="POST" className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-foreground">Nome</label>
                   <Input
