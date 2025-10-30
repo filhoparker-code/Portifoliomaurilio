@@ -46,11 +46,22 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Left - Contact Form */}
             <div className="bg-white rounded-3xl p-8 shadow-2xl">
-              <form action="https://formsubmit.co/filhocesarp@gmail.com" method="POST" className="space-y-6">
+              <form action="https://formsubmit.co/filhocesarp@gmail.com" method="POST" className="space-y-6" onSubmit={() => {
+                // ensure dynamic hidden inputs are populated right before submit
+                try {
+                  const next = document.getElementById('_next') as HTMLInputElement | null;
+                  if (next && !next.value) next.value = window.location.origin + '/thank-you.html';
+                  const reply = document.getElementById('_replyto') as HTMLInputElement | null;
+                  if (reply) reply.value = formData.email || '';
+                } catch (e) {
+                  // ignore
+                }
+              }}>
                 {/* Formsubmit hidden inputs: _next will be filled dynamically so it works locally and in production */}
                 <input type="hidden" name="_next" id="_next" value="" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_subject" value="Novo contato do site" />
+                <input type="hidden" name="_replyto" id="_replyto" value="" />
                 <div>
                   <label className="block text-sm font-semibold mb-2 text-foreground">Nome</label>
                   <Input
