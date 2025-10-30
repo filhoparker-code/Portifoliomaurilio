@@ -28,7 +28,7 @@ const Hero = () => {
               <div className="space-y-2">
                 <p className="text-xl font-medium">Olá, eu sou</p>
                 <h1 className="text-5xl md:text-6xl font-bold">
-                  Maurilio Cesar
+                  <span translate="no">Maurilio Cesar</span>
                 </h1>
                 <p className="text-2xl font-medium text-white/90">
                   Assistente de Processos | Estudante de Engenharia de Produção | Estudante de Processos Gerenciais

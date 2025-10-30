@@ -22,10 +22,10 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="text-2xl font-bold">
+          <a href="/" translate="no" className="text-2xl font-bold inline-flex items-center gap-2">
             <span className="text-white">Maurilio</span>
-            <span className="text-primary ml-2">Cesar</span>
-          </div>
+            <span className="text-primary">Cesar</span>
+          </a>
 
           {/* LinkedIn and Hamburger Menu */}
           <div className="flex items-center gap-4">

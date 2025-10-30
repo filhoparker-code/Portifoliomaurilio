@@ -85,7 +85,7 @@ const Contact = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-xl text-lg font-semibold">
+                <Button type="submit" translate="no" className="w-full bg-primary hover:bg-primary/90 text-white h-14 rounded-xl text-lg font-semibold">
                   <Send size={20} className="mr-2" />
                   Enviar
                 </Button>
