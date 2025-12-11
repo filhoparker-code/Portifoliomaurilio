@@ -151,15 +151,17 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
   );
 
   const renderForm = () => (
-    <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto bg-gray-50">
-      <div className="flex justify-between items-center sticky top-0 bg-gray-50 pb-4 border-b z-10">
-        <div className="bg-green-500 text-white px-4 py-2 rounded text-sm">
-          Documento Validado e Pronto para Emissão
+    <div className="flex h-[85vh] bg-gray-100 gap-1">
+      {/* Coluna Esquerda - Formulário */}
+      <div className="w-1/2 overflow-y-auto bg-gray-50 p-6 space-y-6">
+        <div className="flex justify-between items-center sticky top-0 bg-gray-50 pb-4 z-10">
+          <div className="bg-green-500 text-white px-4 py-2 rounded text-sm">
+            Documento Validado e Pronto para Emissão
+          </div>
+          <Button variant="outline" size="sm" onClick={() => setCurrentScreen('list')}>
+            Voltar
+          </Button>
         </div>
-        <Button variant="outline" onClick={() => setCurrentScreen('list')}>
-          Voltar
-        </Button>
-      </div>
 
       {/* Construção do Código */}
       <Card className="p-6 bg-blue-50 border-blue-200">
@@ -488,21 +490,176 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
       </Card>
 
       {/* Botões de Ação */}
-      <div className="sticky bottom-0 bg-gray-50 pt-6 pb-2 flex gap-4">
-        <Button 
-          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 text-base font-semibold shadow-lg"
-          onClick={() => {
-            setShowSuccessMessage(true);
-            setTimeout(() => {
-              setShowSuccessMessage(false);
-              setCurrentScreen('preview');
-            }, 1500);
-          }}
-        >
-          <Download className="w-5 h-5 mr-2" />
-          Baixar
-        </Button>
-        <span className="text-sm text-gray-600 self-center">Rascunho não salvo</span>
+        <div className="sticky bottom-0 bg-gray-50 pt-6 pb-2">
+          <Button 
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-base font-semibold shadow-lg"
+            onClick={() => {
+              setShowSuccessMessage(true);
+              setTimeout(() => {
+                setShowSuccessMessage(false);
+              }, 1500);
+            }}
+          >
+            <Download className="w-5 h-5 mr-2" />
+            Baixar
+          </Button>
+          <span className="text-xs text-gray-600 text-center block mt-2">Rascunho não salvo</span>
+        </div>
+      </div>
+
+      {/* Coluna Direita - Preview em Tempo Real */}
+      <div className="w-1/2 overflow-y-auto bg-gray-200 p-6">
+        <Card className="bg-white shadow-lg">
+          {/* Cabeçalho */}
+          <div className="border-2 border-black p-3">
+            <div className="flex items-start justify-between gap-4">
+              <div className="w-14 h-14 border-2 border-black flex items-center justify-center flex-shrink-0">
+                <CheckCircle className="w-8 h-8" />
+              </div>
+              <div className="flex-1 text-center">
+                <h2 className="text-base font-bold uppercase">INSTRUÇÕES DE TRABALHO</h2>
+                <p className="text-xs font-semibold mt-1">Título: {formData.titulo}</p>
+              </div>
+              <div className="text-right text-xs flex-shrink-0">
+                <p><strong>Código:</strong> {formData.codigo}</p>
+                <p><strong>Versão:</strong> {formData.versao}</p>
+              </div>
+            </div>
+            <div className="mt-2 pt-2 border-t border-black">
+              <p className="text-xs"><strong>Data de Emissão:</strong> 11/12/2025</p>
+            </div>
+          </div>
+
+          {/* 1. Dados de Identificação */}
+          <div className="p-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">1. DADOS DE IDENTIFICAÇÃO</h3>
+            <table className="w-full border-collapse border border-black text-xs">
+              <tbody>
+                <tr>
+                  <td className="border border-black p-1 font-semibold bg-gray-50 w-1/4">Nome do Projeto:</td>
+                  <td className="border border-black p-1">{formData.nomeProjeto}</td>
+                  <td className="border border-black p-1 font-semibold bg-gray-50 w-1/6">Código:</td>
+                  <td className="border border-black p-1">{formData.codigo}</td>
+                </tr>
+                <tr>
+                  <td className="border border-black p-1 font-semibold bg-gray-50">Manager:</td>
+                  <td className="border border-black p-1">{formData.manager}</td>
+                  <td className="border border-black p-1 font-semibold bg-gray-50">Data de Dias:</td>
+                  <td className="border border-black p-1">{formData.dataDias}</td>
+                </tr>
+                <tr>
+                  <td className="border border-black p-1 font-semibold bg-gray-50">Status:</td>
+                  <td className="border border-black p-1" colSpan={3}>
+                    {formData.firmaStatus ? '☑' : '☐'} Firma   ☐ Status
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* 2. Escopo e Objetivos */}
+          <div className="px-4 pb-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">2. ESCOPO E OBJETIVOS</h3>
+            <table className="w-full border-collapse border border-black text-xs">
+              <tbody>
+                <tr>
+                  <td className="border border-black p-2 align-top w-1/2">
+                    <p className="font-semibold mb-1">Escopo</p>
+                    <p className="text-xs leading-relaxed">{formData.escopo}</p>
+                  </td>
+                  <td className="border border-black p-2 align-top w-1/2">
+                    <p className="font-semibold mb-1">Objetivos</p>
+                    <p className="text-xs leading-relaxed">{formData.objetivos}</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* 3. Cronograma de Entregas */}
+          <div className="px-4 pb-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">3. CRONOGRAMA DE ENTREGAS</h3>
+            <table className="w-full border-collapse border border-black text-xs">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-black p-1 text-xs">ID</th>
+                  <th className="border border-black p-1 text-xs">Fase</th>
+                  <th className="border border-black p-1 text-xs">Responsável</th>
+                  <th className="border border-black p-1 text-xs">Data</th>
+                  <th className="border border-black p-1 text-xs">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.entregas.map((entrega, index) => (
+                  <tr key={index}>
+                    <td className="border border-black p-1 text-center text-xs">{entrega.id}</td>
+                    <td className="border border-black p-1 text-xs">{entrega.fase}</td>
+                    <td className="border border-black p-1 text-xs">{entrega.responsavel}</td>
+                    <td className="border border-black p-1 text-center text-xs">{entrega.data}</td>
+                    <td className="border border-black p-1 text-center text-xs">{entrega.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* 4. Observações e Riscos */}
+          <div className="px-4 pb-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">4. OBSERVAÇÕES E RISCOS</h3>
+            <div className="border border-black p-2">
+              <p className="text-xs text-justify leading-relaxed">{formData.observacoes}</p>
+            </div>
+          </div>
+
+          {/* 5. Aprovações */}
+          <div className="px-4 pb-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">5. APROVAÇÕES</h3>
+            <table className="w-full border-collapse border border-black text-xs">
+              <thead>
+                <tr>
+                  <th className="border border-black p-2 text-xs">Signatura</th>
+                  <th className="border border-black p-2 text-xs">Signatura</th>
+                  <th className="border border-black p-2 text-xs">Signatura</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-black p-6"></td>
+                  <td className="border border-black p-6"></td>
+                  <td className="border border-black p-6"></td>
+                </tr>
+                <tr>
+                  <td className="border border-black p-1 text-center text-xs">Signatura Projeto</td>
+                  <td className="border border-black p-1 text-center text-xs">Signatura Projeto</td>
+                  <td className="border border-black p-1 text-center text-xs">Signatura Projeto</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Controle de Versão */}
+          <div className="px-4 pb-4">
+            <h3 className="font-bold text-sm mb-2 border-b-2 border-black pb-1">CONTROLE DE VERSÃO</h3>
+            <table className="w-full border-collapse border border-black text-xs">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-black p-1 text-xs">REVISÃO</th>
+                  <th className="border border-black p-1 text-xs">DATA</th>
+                  <th className="border border-black p-1 text-xs">ALTERAÇÃO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.versoes.map((ver, index) => (
+                  <tr key={index}>
+                    <td className="border border-black p-1 text-center text-xs">{ver.numero}</td>
+                    <td className="border border-black p-1 text-center text-xs">{ver.data}</td>
+                    <td className="border border-black p-1 text-xs">{ver.alteracao}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       </div>
 
       {showSuccessMessage && (
