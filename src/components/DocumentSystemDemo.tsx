@@ -151,22 +151,24 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
   );
 
   const renderForm = () => (
-    <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
-      <div className="flex justify-between items-center sticky top-0 bg-white pb-4 border-b">
-        <h1 className="text-2xl font-semibold text-gray-800">Novo Documento</h1>
+    <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto bg-gray-50">
+      <div className="flex justify-between items-center sticky top-0 bg-gray-50 pb-4 border-b z-10">
+        <div className="bg-green-500 text-white px-4 py-2 rounded text-sm">
+          Documento Validado e Pronto para Emissão
+        </div>
         <Button variant="outline" onClick={() => setCurrentScreen('list')}>
           Voltar
         </Button>
       </div>
 
       {/* Construção do Código */}
-      <Card className="p-6 bg-blue-50">
-        <h3 className="font-semibold mb-4 text-blue-900">CONSTRUÇÃO DO CÓDIGO</h3>
+      <Card className="p-6 bg-blue-50 border-blue-200">
+        <h3 className="font-semibold mb-4 text-blue-900 text-sm uppercase">CONSTRUÇÃO DO CÓDIGO</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">TIPO</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">TIPO</label>
             <select 
-              className="w-full border rounded-lg px-3 py-2"
+              className="w-full border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
               value={formData.tipo}
               onChange={(e) => setFormData({...formData, tipo: e.target.value})}
             >
@@ -176,9 +178,9 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">SIGLA ÁREA</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">SIGLA ÁREA</label>
             <select 
-              className="w-full border rounded-lg px-3 py-2"
+              className="w-full border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
               value={formData.sigla}
               onChange={(e) => setFormData({...formData, sigla: e.target.value})}
             >
@@ -190,153 +192,208 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">NÚMERO</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">NÚMERO</label>
             <Input 
               type="text" 
               value={formData.numero}
               onChange={(e) => setFormData({...formData, numero: e.target.value})}
-              className="bg-white"
+              className="bg-white text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">VERSÃO (ATUAL)</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">VERSÃO (ATUAL)</label>
             <Input 
               type="text" 
               value={formData.versao}
               onChange={(e) => setFormData({...formData, versao: e.target.value})}
-              className="bg-green-50"
+              className="bg-green-100 text-sm"
               disabled
             />
           </div>
         </div>
-        <div className="mt-4 p-4 bg-white rounded-lg text-center">
-          <span className="text-2xl font-bold text-blue-900">{formData.tipo.split(' - ')[0]}-{formData.sigla}-{formData.numero}-V{formData.versao}</span>
+        <div className="mt-6 p-4 bg-white rounded-lg text-center border-2 border-blue-300">
+          <span className="text-3xl font-bold text-blue-900">{formData.tipo.split(' - ')[0]}-{formData.sigla}-{formData.numero}-V{formData.versao}</span>
         </div>
       </Card>
 
       {/* Título do Procedimento */}
-      <div>
-        <label className="block text-sm font-medium mb-2 text-gray-700">TÍTULO DO PROCEDIMENTO</label>
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <label className="block text-xs font-medium mb-2 text-gray-700 uppercase">TÍTULO DO PROCEDIMENTO</label>
         <Input 
           type="text" 
           value={formData.titulo}
           onChange={(e) => setFormData({...formData, titulo: e.target.value})}
+          className="text-sm"
         />
       </div>
 
       {/* Ícone Cabeçalho */}
-      <div className="flex items-center gap-3">
-        <label className="text-sm font-medium text-gray-700">ÍCONE CABEÇALHO</label>
-        <Button variant="outline" size="sm">Upload Ícone</Button>
-        <div className="w-12 h-12 border-2 border-dashed rounded flex items-center justify-center">
-          <CheckCircle className="w-6 h-6 text-green-600" />
+      <div className="bg-white p-6 rounded-lg shadow-sm">
+        <div className="flex items-center gap-4">
+          <label className="text-xs font-medium text-gray-700 uppercase">ÍCONE CABEÇALHO</label>
+          <Button variant="outline" size="sm" className="text-sm">Upload Ícone</Button>
+          <div className="w-12 h-12 border-2 border-dashed border-gray-300 rounded flex items-center justify-center bg-white">
+            <CheckCircle className="w-8 h-8 text-green-600" />
+          </div>
         </div>
       </div>
 
       {/* Responsáveis */}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">RESPONSÁVEL</label>
-          <Input value={formData.responsavel} onChange={(e) => setFormData({...formData, responsavel: e.target.value})} />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">ELABORADOR</label>
-          <Input value={formData.elaborador} onChange={(e) => setFormData({...formData, elaborador: e.target.value})} />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">REVISOR</label>
-          <Input value={formData.revisor} onChange={(e) => setFormData({...formData, revisor: e.target.value})} />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2 text-gray-700">APROVADOR</label>
-          <Input value={formData.aprovador} onChange={(e) => setFormData({...formData, aprovador: e.target.value})} />
+      <div className="bg-white p-6 rounded-lg shadow-sm space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">RESPONSÁVEL</label>
+            <Input 
+              value={formData.responsavel} 
+              onChange={(e) => setFormData({...formData, responsavel: e.target.value})} 
+              className="text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">ELABORADOR</label>
+            <Input 
+              value={formData.elaborador} 
+              onChange={(e) => setFormData({...formData, elaborador: e.target.value})} 
+              className="text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">REVISOR</label>
+            <Input 
+              value={formData.revisor} 
+              onChange={(e) => setFormData({...formData, revisor: e.target.value})} 
+              className="text-sm"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">APROVADOR</label>
+            <Input 
+              value={formData.aprovador} 
+              onChange={(e) => setFormData({...formData, aprovador: e.target.value})} 
+              className="text-sm"
+            />
+          </div>
         </div>
       </div>
 
       {/* Dados de Identificação */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">1. DADOS DE IDENTIFICAÇÃO</h3>
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">1. DADOS DE IDENTIFICAÇÃO</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">NOME DO PROJETO</label>
-            <Input value={formData.nomeProjeto} onChange={(e) => setFormData({...formData, nomeProjeto: e.target.value})} />
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">NOME DO PROJETO</label>
+            <Input 
+              value={formData.nomeProjeto} 
+              onChange={(e) => setFormData({...formData, nomeProjeto: e.target.value})} 
+              className="text-sm"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">CÓDIGO</label>
-            <Input value={formData.codigo} disabled className="bg-gray-50" />
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">CÓDIGO</label>
+            <Input 
+              value={formData.codigo} 
+              disabled 
+              className="bg-gray-100 text-sm"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">MANAGER</label>
-            <Input value={formData.manager} onChange={(e) => setFormData({...formData, manager: e.target.value})} />
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">MANAGER</label>
+            <Input 
+              value={formData.manager} 
+              onChange={(e) => setFormData({...formData, manager: e.target.value})} 
+              className="text-sm"
+            />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">DATA DE DIAS</label>
-            <Input value={formData.dataDias} onChange={(e) => setFormData({...formData, dataDias: e.target.value})} />
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">DATA DE DIAS</label>
+            <Input 
+              value={formData.dataDias} 
+              onChange={(e) => setFormData({...formData, dataDias: e.target.value})} 
+              className="text-sm"
+            />
           </div>
         </div>
-        <div className="mt-4">
-          <label className="flex items-center gap-2">
-            <input 
-              type="checkbox" 
-              checked={formData.firmaStatus}
-              onChange={(e) => setFormData({...formData, firmaStatus: e.target.checked})}
-              className="w-4 h-4"
-            />
-            <span className="text-sm">Firma</span>
-          </label>
+        <div className="mt-4 pt-4 border-t">
+          <label className="block text-xs font-medium mb-2 text-gray-700 uppercase">STATUS</label>
+          <div className="flex items-center gap-6">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input 
+                type="checkbox" 
+                checked={formData.firmaStatus}
+                onChange={(e) => setFormData({...formData, firmaStatus: e.target.checked})}
+                className="w-4 h-4 rounded"
+              />
+              <span className="text-sm">Firma</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input 
+                type="checkbox" 
+                className="w-4 h-4 rounded"
+              />
+              <span className="text-sm">Status</span>
+            </label>
+          </div>
         </div>
       </Card>
 
       {/* Escopo e Objetivos */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">2. ESCOPO E OBJETIVOS</h3>
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">2. ESCOPO E OBJETIVOS</h3>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">ESCOPO</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">ESCOPO</label>
             <Textarea 
               value={formData.escopo}
               onChange={(e) => setFormData({...formData, escopo: e.target.value})}
               rows={3}
+              className="text-sm resize-none"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700">OBJETIVOS</label>
+            <label className="block text-xs font-medium mb-1 text-gray-700 uppercase">OBJETIVOS</label>
             <Textarea 
               value={formData.objetivos}
               onChange={(e) => setFormData({...formData, objetivos: e.target.value})}
               rows={3}
+              className="text-sm resize-none"
             />
           </div>
         </div>
       </Card>
 
       {/* Cronograma de Entregas */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">3. CRONOGRAMA DE ENTREGAS</h3>
-        <Button variant="outline" size="sm" className="mb-4">
-          <Plus className="w-4 h-4 mr-2" />
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">3. CRONOGRAMA DE ENTREGAS</h3>
+        <Button variant="outline" size="sm" className="mb-4 text-xs">
+          <Plus className="w-3 h-3 mr-1" />
           Add Entrega
         </Button>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="bg-gray-50">
-                <th className="border p-2 text-left text-sm font-medium">ID</th>
-                <th className="border p-2 text-left text-sm font-medium">Fase</th>
-                <th className="border p-2 text-left text-sm font-medium">Responsável</th>
-                <th className="border p-2 text-left text-sm font-medium">Data</th>
-                <th className="border p-2 text-left text-sm font-medium">Status</th>
-                <th className="border p-2 text-center text-sm font-medium">Ações</th>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">ID</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">Fase</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">Responsável</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">Data</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">Status</th>
+                <th className="border border-gray-300 p-2 text-center text-xs font-semibold">Ações</th>
               </tr>
             </thead>
             <tbody>
               {formData.entregas.map((entrega, index) => (
-                <tr key={index}>
-                  <td className="border p-2 text-sm">{entrega.id}</td>
-                  <td className="border p-2 text-sm">{entrega.fase}</td>
-                  <td className="border p-2 text-sm">{entrega.responsavel}</td>
-                  <td className="border p-2 text-sm">{entrega.data}</td>
-                  <td className="border p-2 text-sm">
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="border border-gray-300 p-2 text-xs">{entrega.id}</td>
+                  <td className="border border-gray-300 p-2 text-xs">{entrega.fase}</td>
+                  <td className="border border-gray-300 p-2 text-xs">{entrega.responsavel}</td>
+                  <td className="border border-gray-300 p-2 text-xs">
+                    <input 
+                      type="text" 
+                      value={entrega.data}
+                      className="w-full bg-transparent border-none focus:outline-none"
+                    />
+                  </td>
+                  <td className="border border-gray-300 p-2 text-xs">
                     <span className={`px-2 py-1 rounded text-xs ${
                       entrega.status === 'Em andamento' ? 'bg-yellow-100 text-yellow-700' : 
                       entrega.status === 'A iniciar' ? 'bg-blue-100 text-blue-700' : 
@@ -345,9 +402,9 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
                       {entrega.status}
                     </span>
                   </td>
-                  <td className="border p-2 text-center">
-                    <Button variant="ghost" size="sm" className="text-red-600">
-                      <Trash2 className="w-4 h-4" />
+                  <td className="border border-gray-300 p-2 text-center">
+                    <Button variant="ghost" size="sm" className="text-red-600 h-6 w-6 p-0">
+                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </td>
                 </tr>
@@ -358,57 +415,69 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
       </Card>
 
       {/* Observações e Riscos */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">4. OBSERVAÇÕES E RISCOS</h3>
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">4. OBSERVAÇÕES E RISCOS</h3>
         <Textarea 
           value={formData.observacoes}
           onChange={(e) => setFormData({...formData, observacoes: e.target.value})}
           rows={4}
+          className="text-sm resize-none"
         />
       </Card>
 
       {/* Aprovações */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">5. APROVAÇÕES</h3>
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">5. APROVAÇÕES</h3>
         <div className="grid grid-cols-3 gap-4">
           {formData.aprovacoes.map((apr, index) => (
-            <div key={index} className="border rounded p-4 text-center space-y-2">
-              <div className="h-16 border-b flex items-center justify-center text-sm text-gray-500">
-                Signatura
+            <div key={index} className="border border-gray-300 rounded p-3 text-center space-y-2">
+              <div className="text-xs font-medium text-gray-600 mb-2">Signatura</div>
+              <div className="h-16 border-b border-gray-200 flex items-center justify-center text-xs text-gray-400">
+                [Espaço para assinatura]
               </div>
-              <p className="text-sm font-medium">{apr.nome}</p>
-              <p className="text-xs text-gray-600">Signatura Projeto</p>
+              <input 
+                type="text"
+                value={apr.nome}
+                className="w-full text-center text-xs font-medium border-none focus:outline-none"
+              />
+              <div className="text-xs text-gray-500">Signatura Projeto</div>
             </div>
           ))}
         </div>
       </Card>
 
       {/* Controle de Versão */}
-      <Card className="p-6">
-        <h3 className="font-semibold mb-4 text-gray-800">CONTROLE DE VERSÃO</h3>
-        <Button variant="outline" size="sm" className="mb-4">
-          <Plus className="w-4 h-4 mr-2" />
+      <Card className="p-6 bg-white shadow-sm">
+        <h3 className="font-semibold mb-4 text-gray-800 text-sm">HISTÓRICO DE VERSÃO</h3>
+        <Button variant="outline" size="sm" className="mb-4 text-xs">
+          <Plus className="w-3 h-3 mr-1" />
           Add Versão
         </Button>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="bg-gray-50">
-                <th className="border p-2 text-left text-sm font-medium">REVISÃO</th>
-                <th className="border p-2 text-left text-sm font-medium">DATA</th>
-                <th className="border p-2 text-left text-sm font-medium">ALTERAÇÃO</th>
-                <th className="border p-2 text-center text-sm font-medium">Ações</th>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">REVISÃO</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">DATA</th>
+                <th className="border border-gray-300 p-2 text-left text-xs font-semibold">ALTERAÇÃO</th>
+                <th className="border border-gray-300 p-2 text-center text-xs font-semibold">Ações</th>
               </tr>
             </thead>
             <tbody>
               {formData.versoes.map((ver, index) => (
-                <tr key={index}>
-                  <td className="border p-2 text-sm">{ver.numero}</td>
-                  <td className="border p-2 text-sm">{ver.data}</td>
-                  <td className="border p-2 text-sm">{ver.alteracao}</td>
-                  <td className="border p-2 text-center">
-                    <Button variant="ghost" size="sm" className="text-red-600">
-                      <Trash2 className="w-4 h-4" />
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="border border-gray-300 p-2 text-xs text-center">{ver.numero}</td>
+                  <td className="border border-gray-300 p-2 text-xs">
+                    <input 
+                      type="text" 
+                      value={ver.data}
+                      className="w-full bg-transparent border-none focus:outline-none"
+                    />
+                  </td>
+                  <td className="border border-gray-300 p-2 text-xs">{ver.alteracao}</td>
+                  <td className="border border-gray-300 p-2 text-center">
+                    <Button variant="ghost" size="sm" className="text-red-600 h-6 w-6 p-0">
+                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </td>
                 </tr>
@@ -419,29 +488,27 @@ const DocumentSystemDemo = ({ isOpen, onClose }: DocumentSystemDemoProps) => {
       </Card>
 
       {/* Botões de Ação */}
-      <div className="sticky bottom-0 bg-white pt-4 border-t flex gap-4">
+      <div className="sticky bottom-0 bg-gray-50 pt-6 pb-2 flex gap-4">
         <Button 
-          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 text-lg"
+          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 text-base font-semibold shadow-lg"
           onClick={() => {
             setShowSuccessMessage(true);
             setTimeout(() => {
               setShowSuccessMessage(false);
-              setCurrentScreen('list');
-            }, 2000);
+              setCurrentScreen('preview');
+            }, 1500);
           }}
         >
           <Download className="w-5 h-5 mr-2" />
           Baixar
         </Button>
-        <Button variant="outline" onClick={() => setCurrentScreen('list')}>
-          Rascunho não salvo
-        </Button>
+        <span className="text-sm text-gray-600 self-center">Rascunho não salvo</span>
       </div>
 
       {showSuccessMessage && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-in slide-in-from-top">
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-xl flex items-center gap-3 animate-in slide-in-from-top z-50">
           <CheckCircle className="w-5 h-5" />
-          Documento Validado e Pronto para Emissão
+          <span className="font-medium">Documento Validado e Pronto para Emissão</span>
         </div>
       )}
     </div>
