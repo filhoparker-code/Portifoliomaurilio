@@ -20,7 +20,7 @@ const Projects = () => {
   const projects = [
     {
       title: 'Sistema de Elaboração de Documentos',
-      description: 'Sistema completo para criação, validação e controle de instruções de trabalho, procedimentos e documentos técnicos com geração de PDF.',
+      description: 'Aplicação web desenvolvida para automatizar a criação, versionamento e padronização de documentos corporativos, eliminando inconsistências de formatação e garantindo conformidade com normas de qualidade.',
       technologies: ['React', 'TypeScript', 'Form Management', 'PDF'],
       icon: FileEdit,
       demo: () => setShowDocumentSystemDemo(true)
