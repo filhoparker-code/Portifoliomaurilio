@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileText, BarChart3, Search, FileCheck, Calculator, ExternalLink } from 'lucide-react';
+import { FileText, BarChart3, Search, FileCheck, Calculator, ExternalLink, FileEdit } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import AuditSystemDemo from './AuditSystemDemo';
@@ -7,6 +7,7 @@ import PowerBIDashboardDemo from './PowerBIDashboardDemo';
 import EvidenceCounterDemo from './EvidenceCounterDemo';
 import MasterListAuditDemo from './MasterListAuditDemo';
 import EvidenceCountingDemo from './EvidenceCountingDemo';
+import DocumentSystemDemo from './DocumentSystemDemo';
 
 const Projects = () => {
   const [showAuditDemo, setShowAuditDemo] = useState(false);
@@ -14,8 +15,16 @@ const Projects = () => {
   const [showEvidenceCounterDemo, setShowEvidenceCounterDemo] = useState(false);
   const [showMasterListDemo, setShowMasterListDemo] = useState(false);
   const [showEvidenceCountingDemo, setShowEvidenceCountingDemo] = useState(false);
+  const [showDocumentSystemDemo, setShowDocumentSystemDemo] = useState(false);
 
   const projects = [
+    {
+      title: 'Sistema de Elaboracao de Documentos',
+      description: 'Sistema completo para criação, validação e controle de instruções de trabalho, procedimentos e documentos técnicos com geração de PDF.',
+      technologies: ['React', 'TypeScript', 'Form Management', 'PDF'],
+      icon: FileEdit,
+      demo: () => setShowDocumentSystemDemo(true)
+    },
     {
       title: 'Sistema de Auditoria de Processos',
       description: 'Aplicação completa para gerenciamento de auditorias internas com geração automática de relatórios e dashboards de indicadores.',
@@ -126,6 +135,7 @@ const Projects = () => {
       </div>
 
       {/* Demo Modals */}
+      <DocumentSystemDemo isOpen={showDocumentSystemDemo} onClose={() => setShowDocumentSystemDemo(false)} />
       <AuditSystemDemo isOpen={showAuditDemo} onClose={() => setShowAuditDemo(false)} />
       <PowerBIDashboardDemo isOpen={showPowerBIDemo} onClose={() => setShowPowerBIDemo(false)} />
       <EvidenceCounterDemo isOpen={showEvidenceCounterDemo} onClose={() => setShowEvidenceCounterDemo(false)} />
