@@ -19,7 +19,7 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'Sistema de Elaboracao de Documentos',
+      title: 'Sistema de Elaboração de Documentos',
       description: 'Sistema completo para criação, validação e controle de instruções de trabalho, procedimentos e documentos técnicos com geração de PDF.',
       technologies: ['React', 'TypeScript', 'Form Management', 'PDF'],
       icon: FileEdit,
