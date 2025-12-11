@@ -46,7 +46,7 @@ const Hero = () => {
                 <Button asChild size="lg" className="rounded-full font-semibold transition-all duration-300 hover:scale-105 bg-white text-primary hover:bg-white/90 w-full sm:w-auto">
                   <a href="/Maurilio_Cesar_curriculo.pdf" download>
                     <Download size={20} className="mr-2" />
-                    Baixar CV
+                    Currículo
                   </a>
                 </Button>
 
